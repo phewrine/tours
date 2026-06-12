@@ -144,7 +144,8 @@ export default function SafariRoots() {
       fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
       background: colors.lightBg,
       minHeight: "100vh",
-      color: "#1A1A1A"
+      color: "#1A1A1A",
+      overflowX: "hidden"
     }}>
 
       {/* ─── VIDEO BACKGROUND (no overlay) ─── */}
@@ -177,7 +178,7 @@ export default function SafariRoots() {
       <div style={{ position: "relative", zIndex: 2 }}>
 
         {/* ─── TOP BAR ─── */}
-        <div style={{
+        <div className="top-bar" style={{
           background: "rgba(0,0,0,0.7)",
           backdropFilter: "blur(10px)",
           color: "#fff",
@@ -205,7 +206,7 @@ export default function SafariRoots() {
         </div>
 
         {/* ─── NAVBAR — fully centered ─── */}
-        <nav style={{
+        <nav className="navbar" style={{
           position: "sticky",
           top: 0,
           zIndex: 100,
@@ -230,17 +231,18 @@ export default function SafariRoots() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              boxShadow: "0 0 20px rgba(45,106,79,0.5)"
+              boxShadow: "0 0 20px rgba(45,106,79,0.5)",
+              flexShrink: 0
             }}>
               <span style={{ color: "#fff", fontSize: 22 }}>🌿</span>
             </div>
-            <span style={{ fontWeight: 800, fontSize: 24, color: "#fff", letterSpacing: "-0.5px", textShadow: "2px 2px 4px rgba(0,0,0,0.5)" }}>
+            <span style={{ fontWeight: 800, fontSize: 24, color: "#fff", letterSpacing: "-0.5px", textShadow: "2px 2px 4px rgba(0,0,0,0.5)", whiteSpace: "nowrap" }}>
               Safari Roots
             </span>
           </div>
 
           {/* Nav links + CTA — centered alongside logo */}
-          <div style={{ display: "flex", gap: 30, alignItems: "center" }}>
+          <div className="nav-links" style={{ display: "flex", gap: 30, alignItems: "center" }}>
             {["Home", "Safaris", "Destinations", "About", "Contact"].map(link => (
               <a key={link} href={`#${link.toLowerCase()}`} style={{
                 color: "#fff",
@@ -264,7 +266,8 @@ export default function SafariRoots() {
               fontSize: 14,
               cursor: "pointer",
               transition: "transform 0.2s",
-              boxShadow: "0 4px 15px rgba(0,0,0,0.3)"
+              boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+              whiteSpace: "nowrap"
             }}
             onMouseOver={e => { (e.target as HTMLElement).style.transform = "scale(1.05)"; }}
             onMouseOut={e => { (e.target as HTMLElement).style.transform = "scale(1)"; }}>
@@ -274,15 +277,15 @@ export default function SafariRoots() {
 
           {/* Mobile Menu Button */}
           <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="mobile-menu-btn"
             style={{
-              display: "none",
               background: "none",
               border: "none",
               fontSize: 28,
               cursor: "pointer",
               color: "#fff"
             }}>
-            ☰
+            {mobileMenuOpen ? "✕" : "☰"}
           </button>
         </nav>
 
@@ -303,7 +306,7 @@ export default function SafariRoots() {
             textAlign: "center"
           }}>
             {["Home", "Safaris", "Destinations", "About", "Contact"].map(link => (
-              <a key={link} href={`#${link.toLowerCase()}`} style={{ color: "#fff", textDecoration: "none", fontSize: 18, fontWeight: 600, padding: "10px 0" }}>
+              <a key={link} href={`#${link.toLowerCase()}`} onClick={() => setMobileMenuOpen(false)} style={{ color: "#fff", textDecoration: "none", fontSize: 18, fontWeight: 600, padding: "10px 0" }}>
                 {link}
               </a>
             ))}
@@ -349,7 +352,7 @@ export default function SafariRoots() {
 
               {/* ★ star sits just before the brand name */}
               <h1 style={{
-                fontSize: "clamp(3rem, 8vw, 5.5rem)",
+                fontSize: "clamp(2.5rem, 8vw, 5.5rem)",
                 fontWeight: 900,
                 margin: "0 0 20px",
                 lineHeight: 1.1,
@@ -374,7 +377,7 @@ export default function SafariRoots() {
                 marginBottom: 35
               }}>
                 <p style={{
-                  fontSize: "clamp(1.1rem, 2.5vw, 1.3rem)",
+                  fontSize: "clamp(1rem, 2.5vw, 1.3rem)",
                   color: "#fff",
                   lineHeight: 1.7,
                   fontWeight: 500,
@@ -428,7 +431,7 @@ export default function SafariRoots() {
 
         {/* ─── STATS — no emojis ─── */}
         <section style={{ background: colors.darkBg, padding: "60px 5%", textAlign: "center" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 32, textAlign: "center" }}>
+          <div className="stats-grid" style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 32, textAlign: "center" }}>
             {[
               { val: "15+", label: "Years of Excellence" },
               { val: "500+", label: "Safaris Planned" },
@@ -462,7 +465,7 @@ export default function SafariRoots() {
               </div>
             </Appear>
 
-            <div style={{ display: "flex", gap: 12, justifyContent: "center", marginBottom: 40, flexWrap: "wrap" }}>
+            <div className="filter-bar" style={{ display: "flex", gap: 12, justifyContent: "center", marginBottom: 40, flexWrap: "wrap" }}>
               {filters.map(f => (
                 <button key={f} onClick={() => setActiveFilter(f)}
                   style={{
@@ -478,7 +481,7 @@ export default function SafariRoots() {
               ))}
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 30, textAlign: "left" }}>
+            <div className="packages-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 30, textAlign: "left" }}>
               {packages.map((pkg, i) => (
                 <Appear key={i} delay={i * 80}>
                   <div style={{
@@ -510,7 +513,7 @@ export default function SafariRoots() {
                       </div>
                       <h3 style={{ fontWeight: 800, fontSize: 18, lineHeight: 1.3, marginBottom: 8, color: colors.brown }}>{pkg.title}</h3>
                       <p style={{ fontSize: 14, color: "#9CA3AF", marginBottom: 20, fontWeight: 500 }}>{pkg.nights}</p>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "2px solid #F0EDE4", paddingTop: 16 }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", borderTop: "2px solid #F0EDE4", paddingTop: 16, flexWrap: "wrap", gap: 12 }}>
                         <div>
                           <span style={{ fontSize: 24, fontWeight: 900, color: colors.jungle }}>{pkg.price}</span>
                           {pkg.originalPrice && (
@@ -534,12 +537,12 @@ export default function SafariRoots() {
 
         {/* ─── WHY US ─── */}
         <section id="about" style={{ padding: "80px 5%", background: "#fff" }}>
-          <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
+          <div className="why-us-grid" style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 60, alignItems: "center" }}>
             <Appear>
-              <div style={{ position: "relative", borderRadius: 20, overflow: "hidden", height: 460 }}>
+              <div className="why-us-image" style={{ position: "relative", borderRadius: 20, overflow: "hidden", height: 460 }}>
                 <img src="https://images.unsplash.com/photo-1549366021-9f761d450c63?w=800&q=80" alt="Elephant family" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 <div style={{
-                  position: "absolute", bottom: 24, left: 24,
+                  position: "absolute", bottom: 24, left: 24, right: 24,
                   background: "rgba(255,255,255,0.95)", borderRadius: 16,
                   padding: "20px 26px", boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
                   borderLeft: `5px solid ${colors.jungle}`
@@ -594,10 +597,10 @@ export default function SafariRoots() {
                 <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, letterSpacing: "-1px", color: colors.brown }}>Iconic Wild Destinations</h2>
               </div>
             </Appear>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+            <div className="destinations-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
               {destinations.map((d, i) => (
                 <Appear key={i} delay={i * 70}>
-                  <div style={{
+                  <div className="destination-card" style={{
                     position: "relative",
                     height: i === 0 || i === 3 ? 380 : 300,
                     borderRadius: 20,
@@ -628,7 +631,7 @@ export default function SafariRoots() {
                 <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, letterSpacing: "-1px", color: colors.brown }}>Your Safari, in 3 Steps</h2>
               </div>
             </Appear>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 40 }}>
+            <div className="steps-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 40 }}>
               {[
                 { num: "1", title: "Dream and Inquire", desc: "Share your travel wishlist—destinations, budget, style.", icon: "🗺️" },
                 { num: "2", title: "Custom Itinerary", desc: "Our experts design your safari, adjusting until it's perfect.", icon: "✏️" },
@@ -666,7 +669,7 @@ export default function SafariRoots() {
                 <h2 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 900, letterSpacing: "-1px", color: "#fff" }}>What Our Travelers Say</h2>
               </div>
             </Appear>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
+            <div className="testimonials-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 28 }}>
               {testimonials.map((t, i) => (
                 <Appear key={i} delay={i * 100}>
                   <div style={{ background: "#2C2A29", borderRadius: 20, padding: "30px 28px", border: `2px solid ${colors.brown}`, textAlign: "center" }}>
@@ -694,7 +697,7 @@ export default function SafariRoots() {
         </section>
 
         {/* ─── CTA ─── */}
-        <section style={{
+        <section className="cta-section" style={{
           padding: "100px 5%",
           backgroundImage: "url('https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1600&q=80')",
           backgroundSize: "cover",
@@ -738,7 +741,7 @@ export default function SafariRoots() {
         {/* ─── FOOTER ─── */}
         <footer style={{ background: colors.darkBg, padding: "64px 5% 32px", color: "#9E9C99" }}>
           <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1.5fr", gap: 48, marginBottom: 48 }}>
+            <div className="footer-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1.5fr", gap: 48, marginBottom: 48 }}>
               <div>
                 <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
                   <div style={{ width: 42, height: 42, background: `linear-gradient(135deg, ${colors.jungle}, ${colors.brown})`, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -746,7 +749,7 @@ export default function SafariRoots() {
                   </div>
                   <span style={{ fontWeight: 800, fontSize: 22, color: "#fff" }}>Safari Roots</span>
                 </div>
-                <p style={{ fontSize: 14, lineHeight: 1.8, maxWidth: 280, color: "#B0AFAE", fontWeight: 500 }}>
+                <p style={{ fontSize: 14, lineHeight: 1.8, maxWidth: 280, color: "#B0AFAE", fontWeight: 500, margin: "0 auto" }}>
                   Authentic, eco-conscious safaris across East Africa. Based in Mombasa, serving the world.
                 </p>
                 <div style={{ marginTop: 24, fontSize: 14, lineHeight: 2, fontWeight: 500 }}>
@@ -788,9 +791,9 @@ export default function SafariRoots() {
                   <div style={{ display: "flex" }}>
                     <input type="email" value={email} onChange={e => setEmail(e.target.value)}
                       placeholder="Your email"
-                      style={{ flex: 1, background: "#3D3A38", border: "none", borderRadius: "40px 0 0 40px", padding: "12px 18px", color: "#fff", fontSize: 14, outline: "none" }} />
+                      style={{ flex: 1, minWidth: 0, background: "#3D3A38", border: "none", borderRadius: "40px 0 0 40px", padding: "12px 18px", color: "#fff", fontSize: 14, outline: "none" }} />
                     <button onClick={() => setSubscribed(true)}
-                      style={{ background: `linear-gradient(135deg, ${colors.jungle}, ${colors.brown})`, color: "#fff", border: "none", borderRadius: "0 40px 40px 0", padding: "12px 20px", fontWeight: 800, fontSize: 18, cursor: "pointer" }}>
+                      style={{ background: `linear-gradient(135deg, ${colors.jungle}, ${colors.brown})`, color: "#fff", border: "none", borderRadius: "0 40px 40px 0", padding: "12px 20px", fontWeight: 800, fontSize: 18, cursor: "pointer", flexShrink: 0 }}>
                       →
                     </button>
                   </div>
@@ -806,15 +809,52 @@ export default function SafariRoots() {
 
       {/* Responsive Styles */}
       <style>{`
-        @media (max-width: 768px) {
-          nav > div:last-child { display: none !important; }
-          nav button.mobile-menu-btn { display: block !important; }
-          footer > div > div { grid-template-columns: 1fr !important; text-align: center !important; }
-        }
-        @media (min-width: 769px) {
-          nav button.mobile-menu-btn { display: none !important; }
-        }
         * { box-sizing: border-box; }
+        html, body { overflow-x: hidden; }
+
+        /* Mobile menu button hidden on desktop by default */
+        .mobile-menu-btn { display: none; }
+
+        /* ── Tablet ── */
+        @media (max-width: 1024px) {
+          .destinations-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .why-us-grid { gap: 36px !important; }
+        }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+          .top-bar { font-size: 11px !important; gap: 10px !important; padding: 8px 5% !important; }
+          .top-bar > div { gap: 14px !important; justify-content: center !important; }
+
+          .navbar { justify-content: space-between !important; gap: 12px !important; padding: 0 5% !important; }
+          .nav-links { display: none !important; }
+          .mobile-menu-btn { display: block !important; }
+
+          section { padding: 48px 5% !important; }
+
+          .filter-bar { gap: 8px !important; }
+          .filter-bar button { padding: 8px 16px !important; font-size: 13px !important; }
+
+          .packages-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+
+          .why-us-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .why-us-image { height: 280px !important; }
+
+          .destinations-grid { grid-template-columns: 1fr !important; gap: 18px !important; }
+          .destination-card { height: 260px !important; }
+
+          .steps-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+
+          .testimonials-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+
+          .cta-section { padding: 64px 5% !important; background-attachment: scroll !important; }
+
+          .footer-grid { grid-template-columns: 1fr !important; gap: 36px !important; text-align: center !important; }
+        }
+
+        @media (max-width: 480px) {
+          .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
+        }
       `}</style>
     </div>
   );
